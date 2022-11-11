@@ -1,11 +1,11 @@
 export class MovieInfo {
-    _movieId: string = '';
-    _director: string = '';
-    _releaseYear: number = 0;
-    _ratings: number = 0;
-    _movieName: string = '';
-    _genre: string = '';
-    _actors?: Array<string> = [];
-    _length: number = 0;
+    movie_id: string = '';
+    director: string = '';
+    release_year: number = 0;
+    ratings: number = 0;
+    movie_name: string = '';
+    genre: string = '';
+    actors?: Array<string> = [];
+    length: number = 0;
 
 }

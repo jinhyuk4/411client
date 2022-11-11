@@ -7,6 +7,7 @@ import { AddreviewComponent } from '../addreview/addreview.component';
   selector: 'app-movieinfo-reviews-page',
   template: `
     <p>
+      hello
       <app-movieinfo></app-movieinfo>
       <app-reviews></app-reviews>
       <app-addreview></app-addreview>

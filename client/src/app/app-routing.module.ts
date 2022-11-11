@@ -13,12 +13,12 @@ const routes: Routes = [
     path: 'movies/:releasedAfter/:minRating/:genre/:minLen',
     component: ViewmovieslistPageComponent
   },
+  // {
+  //   path: 'movies/:movieTitle',
+  //   component: ViewmoviesbytitlePageComponent
+  // },
   {
-    path: 'movies/:movieTitle',
-    component: ViewmoviesbytitlePageComponent
-  },
-  {
-    path: 'movies/:movieId',
+    path: 'movies/:contentId',
     component: MovieinfoReviewsPageComponent
   },
   {

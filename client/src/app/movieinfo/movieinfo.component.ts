@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SearchtoolService } from '../searchtool.service';
 import { MovieInfo } from '../movieinfo';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-movieinfo',
@@ -15,23 +16,22 @@ import { MovieInfo } from '../movieinfo';
               </figure>
             </div>
             <div class="media-content">
-              <p class="title is-4">Avengers: Infinity War  movie Id: {{movieId}}</p>
-             
+              <p class="title is-4">{{movieInfo.movie_name}}</p>
               <p class="subtitle is-6">Released 2020</p>
             </div>
           </div>
 
           <div class="content">
-            <strong>Directed by:</strong> Joe Russo
+            <strong>Directed by:</strong> {{movieInfo.director}}
             <br>
-            <strong>Average Ratings (imdb):</strong> 8.7
+            <strong>Average Ratings (imdb):</strong> {{movieInfo.ratings}}
             <br>
-            <strong>Genre:</strong> Fantasy
+            <strong>Genre:</strong> {{movieInfo.genre}}
             <br>
-            <strong>Show Runtime:</strong> 2h 37m
+            <strong>Show Runtime:</strong> {{movieInfo.length}}
             <br>
-            <strong>Actors:</strong> <a href="#"> Robert Downey</a> <a href="#"> Chris Evans</a> 
-            <br>
+            <!-- <strong>Actors:</strong> <a href="#"> Robert Downey</a> <a href="#"> Chris Evans</a>  -->
+            <!-- <br> -->
           </div>
         </div>
       </div>
@@ -46,16 +46,23 @@ export class MovieinfoComponent implements OnInit {
   constructor(private route: ActivatedRoute, private searchtoolService:SearchtoolService) { }
 
   ngOnInit(): void {
-    let movieId = <string>this.route.snapshot.paramMap.get('movieId');
+    let movieId = <string>this.route.snapshot.paramMap.get('contentId');
     this.movieId = movieId
-    this.fetchMovie(movieId)
-  }
+    
+    const params = new HttpParams()
+      .set('movie_id', movieId)
 
-  fetchMovie(movieId:string): void {
-    this.searchtoolService.getMovieById(movieId)
+    console.log('movie Id Param:' + movieId)
+
+    this.searchtoolService.getMovieById(params)
       .subscribe(fetchedMovieInfo => {
-        this.movieInfo = <MovieInfo>fetchedMovieInfo
+        var movieInfoArray: Array<MovieInfo> = <MovieInfo[]>fetchedMovieInfo;
+        console.log('fetched whole array: ', fetchedMovieInfo)
+        console.log('fetched movie by movieId:', movieInfoArray[0])
+        this.movieInfo = movieInfoArray[0]
+        // this.movieInfo = (<MovieInfo>[] fetchedMovieInfo)[0];
       })
   }
+
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReviewsService } from '../reviews.service';
 import { Review } from '../review';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-reviews',
@@ -47,10 +48,15 @@ export class ReviewsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.reviewsService.getReviews()
-      .subscribe(reviews => 
-        this.reviews = <Review[]>reviews
-      )
+    // let contentId = <string>this.route.snapshot.paramMap.get('contentId');
+
+
+    // const params = new HttpParams()
+    //   .set('contentId', contentId)
+    // this.reviewsService.getReviewsByContentId(params)
+    //   .subscribe(reviews => 
+    //     this.reviews = <Review[]>reviews
+    //   )
   }
 
   onClickEditReview(reviewId:string) {

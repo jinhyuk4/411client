@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Movie } from '../review';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MoviesService } from '../movies.service';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-viewmovieslist-page',
@@ -45,7 +47,7 @@ export class ViewmovieslistPageComponent implements OnInit {
   minRating:number = 0;
   genre:string = '';
   minLen:number = 0;
-  constructor(private router:Router, private route:ActivatedRoute) { }
+  constructor(private router:Router, private route:ActivatedRoute, private service:MoviesService) { }
 
   ngOnInit(): void {
     let movieId = <string>this.route.snapshot.paramMap.get('movieId');
@@ -53,6 +55,17 @@ export class ViewmovieslistPageComponent implements OnInit {
     this.minRating = <number><unknown>this.route.snapshot.paramMap.get('minRating');
     this.genre = <string><unknown>this.route.snapshot.paramMap.get('genre');
     this.minLen = <number><unknown>this.route.snapshot.paramMap.get('minLen');
+
+    const params = new HttpParams()
+      .set('release_year', this.releasedAfter)
+      .set('ratings', this.minRating)
+      .set('genre', this.genre)
+      .set('length', this.minLen)
+
+    this.service.getMoviesByFilter(params).subscribe(result => {
+      console.log(result);
+      this.movies = <Movie[]>result;
+    })
   }
 
   onViewDetails(id:string) {
