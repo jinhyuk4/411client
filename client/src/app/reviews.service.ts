@@ -37,8 +37,11 @@ export class ReviewsService {
   }
 
   // DELETE review by its id
-  deleteReview(id:String){
-    return this.http.delete('http://localhost:3000/reviews' + id).pipe(map(res => res));
+  deleteReview(reviewDelete:Object){
+    var headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    // return this.http.delete('http://localhost:3306/reviews', reviewDelete, {headers: headers}).pipe(map(res => res));
+    return this.http.delete('http://localhost:3306/reviews', reviewDelete).pipe(map(res => res));
   }
 
   updateReview(reviewUpdate:Object){

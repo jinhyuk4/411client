@@ -16,7 +16,7 @@ import {v4 as uuid} from "uuid";
       <textarea class="textarea"[(ngModel)]="updated_review_text"></textarea>
 
       <div class="mt-2">
-        <button class="button is-warning mr-2">Delete</button>
+        <button (click)="deleteReview()"class="button is-warning mr-2">Delete</button>
         <button (click)="updateReview()"class="button is-info">Save</button>
       </div>
       
@@ -48,6 +48,22 @@ export class EditreviewPageComponent implements OnInit {
       // rating: this.rating
     }
     this.reviewsService.updateReview(reviewUpdate)
+      .subscribe(review => {
+        // console.log('added review')
+        console.log(review)
+      })
+  }
+
+  deleteReview() {
+    console.log('uuid test: ' + uuid())
+    const reviewUpdate = {
+      // content_id: `${this.contentId}`,
+      // user_id: '1',
+      review_id: this.reviewId,
+      // review_text: `${this.updated_review_text}`,
+      // rating: this.rating
+    }
+    this.reviewsService.deleteReview(reviewUpdate)
       .subscribe(review => {
         // console.log('added review')
         console.log(review)
