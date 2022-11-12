@@ -51,6 +51,7 @@ export class MovieinfoComponent implements OnInit {
     
     const params = new HttpParams()
       .set('movie_id', movieId)
+    console.log(params)
 
     console.log('movie Id Param:' + movieId)
 

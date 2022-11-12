@@ -18,6 +18,10 @@ const routes: Routes = [
   //   component: ViewmoviesbytitlePageComponent
   // },
   {
+    path: 'movies/title/:movieTitle',
+    component: ViewmoviesbytitlePageComponent
+  },
+  {
     path: 'movies/:contentId',
     component: MovieinfoReviewsPageComponent
   },

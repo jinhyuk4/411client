@@ -95,7 +95,7 @@ export class SearchpagePageComponent implements OnInit {
 
   onTitleSearch() {
     this.router.navigate(
-      ['/movies', this.movieTitle]
+      ['/movies/title', this.movieTitle]
     );
   }
 

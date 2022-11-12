@@ -29,6 +29,16 @@ export class ReviewsService {
     return this.http.get('http://localhost:3306/reviews/contentId', { headers: this.headers, params: contentIdData}).pipe(map(res => res))
   }
 
+  getAdvancedQueryReview(){
+    console.log(this.http.get('http://localhost:3306/advancedquery1', { headers: this.headers}).pipe(map(res => res)))
+    return this.http.get('http://localhost:3306/reviews/advancedquery1', { headers: this.headers}).pipe(map(res => res))
+  }
+
+  getAdvancedQueryReview2(){
+    console.log(this.http.get('http://localhost:3306/reviews/advancedquery2', { headers: this.headers}).pipe(map(res => res)))
+    return this.http.get('http://localhost:3306/reviews/advancedquery2', { headers: this.headers}).pipe(map(res => res))
+  }
+
   // CREATE and store new review
   addReview(newReview:Object) { // TODO: is this type JSON or object?
     var headers = new HttpHeaders();
@@ -40,8 +50,12 @@ export class ReviewsService {
   deleteReview(reviewDelete:Object){
     var headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
+    const httpOptions = {
+      headers: headers,
+      body: reviewDelete,
+  };
     // return this.http.delete('http://localhost:3306/reviews', reviewDelete, {headers: headers}).pipe(map(res => res));
-    return this.http.delete('http://localhost:3306/reviews', reviewDelete).pipe(map(res => res));
+    return this.http.delete('http://localhost:3306/reviews', httpOptions).pipe(map(res => res));
   }
 
   updateReview(reviewUpdate:Object){
