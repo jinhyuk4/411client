@@ -1,8 +1,8 @@
 export class Review {
-    _id: string = '';
-    _userId: string = '';
-    _rating: number = 0;
-    _reviewText: string = '';
+    review_id: string = '';
+    user_id: string = '';
+    ratings: number = 0;
+    review_text: string = '';
 }
 
 export class Movie {

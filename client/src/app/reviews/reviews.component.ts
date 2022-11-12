@@ -13,11 +13,11 @@ import { HttpParams } from '@angular/common/http';
       <div class="box" *ngFor="let review of reviews">
           <div class="content">
             <p>
-              <strong>{{review._userId}}</strong> <small> @{{review._userId}}</small>
+              <strong>{{review.user_id}}</strong> <small> @{{review.user_id}}</small>
               <br>
-              {{review._reviewText}}
+              {{review.review_text}}
             </p>
-            <button class="button" (click)="onClickEditReview(review._id)">Edit Review</button>
+            <button class="button" (click)="onClickEditReview(review.review_id)">Edit Review</button>
           </div>
         </div>
     </div>
@@ -29,18 +29,18 @@ import { HttpParams } from '@angular/common/http';
 export class ReviewsComponent implements OnInit {
 
   reviews:Review[] = [
-    {
-      _id: '0',
-      _userId: '39920384johnsmith',
-      _rating: 4,
-      _reviewText: 'fun movie!'
-    },
-    {
-      _id: '1',
-      _userId: '39920384ellemsmith',
-      _rating: 0,
-      _reviewText: 'terrible!'
-    }
+    // {
+    //   _id: '0',
+    //   _userId: '39920384johnsmith',
+    //   _rating: 4,
+    //   _reviewText: 'fun movie!'
+    // },
+    // {
+    //   _id: '1',
+    //   _userId: '39920384ellemsmith',
+    //   _rating: 0,
+    //   _reviewText: 'terrible!'
+    // }
   ];
   review:Review = new Review();
 
@@ -48,15 +48,17 @@ export class ReviewsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // let contentId = <string>this.route.snapshot.paramMap.get('contentId');
+    let contentId = <string>this.route.snapshot.paramMap.get('contentId');
 
 
-    // const params = new HttpParams()
-    //   .set('contentId', contentId)
-    // this.reviewsService.getReviewsByContentId(params)
-    //   .subscribe(reviews => 
-    //     this.reviews = <Review[]>reviews
-    //   )
+    const params = new HttpParams()
+      .set('contentId', contentId)
+    this.reviewsService.getReviewsByContentId(params)
+      .subscribe(reviews => {
+          console.log(reviews);
+          this.reviews = <Review[]>reviews
+        }
+      )
   }
 
   onClickEditReview(reviewId:string) {

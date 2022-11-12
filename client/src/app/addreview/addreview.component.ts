@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ReviewsService } from '../reviews.service';
 import { Review } from '../review';
+import { ActivatedRoute } from '@angular/router';
+import {v4 as uuid} from "uuid";
 
 @Component({
   selector: 'app-addreview',
@@ -10,7 +12,7 @@ import { Review } from '../review';
       <div class="field">
         <label class="label">Review Text</label>
         <div class="control">
-          <textarea class="textarea" placeholder="Textarea"></textarea>
+          <textarea class="textarea" name="reviewText" [(ngModel)]="reviewText" placeholder="Textarea"></textarea>
         </div>
       </div>
 
@@ -18,7 +20,7 @@ import { Review } from '../review';
         <label class="label">Select rating</label>
         <div class="control">
           <div class="select">
-            <select [(ngModel)]="_rating" name="rating">
+            <select [(ngModel)]="rating" name="rating" name="rating">
               <option [value]="0">0</option>
               <option [value]="0">1</option>
               <option [value]="0">2</option>
@@ -32,7 +34,7 @@ import { Review } from '../review';
 
       <div class="field is-grouped">
         <div class="control">
-          <input type="submit" class="button is-link" value="Submit Review"/>
+          <input type="submit" (click)="addReview()" class="button is-link" value="Submit Review"/>
         </div>
       </div>
 
@@ -44,26 +46,29 @@ import { Review } from '../review';
 export class AddreviewComponent implements OnInit {
 
  
-  _rating:number = 4;
-  _reviewText:string = '';
+  rating:number = 4;
+  reviewText:string = '';
+  contentId:string = '';
 
-  constructor(private reviewsService:ReviewsService) { }
+  constructor(private reviewsService:ReviewsService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.contentId = <string>this.route.snapshot.paramMap.get('contentId');
   }
 
   addReview() {
+    console.log('uuid test: ' + uuid())
     const newReview = {
-      _id: 'TODO',
-      _userId: 'TODO',
-      _reviewText: this._reviewText,
-      _userRating: this._rating
+      content_id: `${this.contentId}`,
+      user_id: '1',
+      review_id: '500',
+      review_text: `${this.reviewText}`,
+      rating: this.rating
     }
     this.reviewsService.addReview(newReview)
       .subscribe(review => {
-        console.log('added review')
+        // console.log('added review')
+        console.log(review)
       })
   }
-  
-
 }

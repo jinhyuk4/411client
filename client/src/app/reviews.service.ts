@@ -25,6 +25,7 @@ export class ReviewsService {
   // Get reviews by content Id
   getReviewsByContentId(contentIdData:HttpParams) {
     console.log('contentId data: ', contentIdData.get('contentId'))
+    console.log(this.http.get('http://localhost:3306/reviews/contentId', { headers: this.headers, params: contentIdData}).pipe(map(res => res)))
     return this.http.get('http://localhost:3306/reviews/contentId', { headers: this.headers, params: contentIdData}).pipe(map(res => res))
   }
 
@@ -32,13 +33,17 @@ export class ReviewsService {
   addReview(newReview:Object) { // TODO: is this type JSON or object?
     var headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/api/URL-IN-MY-BACKEND', newReview, {headers: headers}).pipe(map(res => res));
+    return this.http.post('http://localhost:3306/reviews', newReview, {headers: headers}).pipe(map(res => res));
   }
 
   // DELETE review by its id
   deleteReview(id:String){
-    return this.http.delete('http://localhost:3000/api/URL-IN-MY-BACKEND/' + id).pipe(map(res => res));
+    return this.http.delete('http://localhost:3000/reviews' + id).pipe(map(res => res));
   }
 
- 
+  updateReview(reviewUpdate:Object){
+    var headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put('http://localhost:3306/reviews', reviewUpdate, {headers: headers}).pipe(map(res => res));
+  }
 }
