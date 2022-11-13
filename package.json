@@ -1,30 +1,19 @@
 {
-  "name": "411proj",
-  "version": "0.0.0",
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
-  "private": true,
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "@angular/animations": "^14.2.0",
-    "@angular/common": "^14.2.0",
-    "@angular/compiler": "^14.2.0",
-    "@angular/core": "^14.2.0",
-    "@angular/forms": "^14.2.0",
-    "@angular/platform-browser": "^14.2.0",
-    "@angular/platform-browser-dynamic": "^14.2.0",
-    "@angular/router": "^14.2.0",
-    "rxjs": "~7.5.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mysql2": "^2.3.3",
+    "path": "^0.12.7"
   },
-  "devDependencies": {
-    "@angular-devkit/build-angular": "^14.2.8",
-    "@angular/cli": "~14.2.8",
-    "@angular/compiler-cli": "^14.2.0",
-    "typescript": "~4.7.2"
-  }
+  "description": ""
 }
