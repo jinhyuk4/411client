@@ -3,11 +3,12 @@ import { ReviewsService } from '../reviews.service';
 import { Review } from '../review';
 import { ActivatedRoute } from '@angular/router';
 import {v4 as uuid} from "uuid";
+import * as numberGenerator from "number-generator";
 
 @Component({
   selector: 'app-addreview',
   template: `
-    <form (submit)="addReview()">
+    <form>
       <h1 class="is-size-4 mt-5 pt-5">Add Your Review</h1>
       <div class="field">
         <label class="label">Review Text</label>
@@ -49,11 +50,16 @@ export class AddreviewComponent implements OnInit {
   rating:number = 4;
   reviewText:string = '';
   contentId:string = '';
+  idGenerator:any = null
 
   constructor(private reviewsService:ReviewsService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.contentId = <string>this.route.snapshot.paramMap.get('contentId');
+    var gen = numberGenerator.aleaRNGFactory()
+    this.idGenerator = gen
+    console.log('random test: ', gen.uInt32())
+    console.log('random test: ', gen.uInt32())
   }
 
   addReview() {
@@ -61,7 +67,7 @@ export class AddreviewComponent implements OnInit {
     const newReview = {
       content_id: `${this.contentId}`,
       user_id: '1',
-      review_id: '500',
+      review_id: `${Math.ceil(Math.random() * 100000 )}`,
       review_text: `${this.reviewText}`,
       rating: this.rating
     }
